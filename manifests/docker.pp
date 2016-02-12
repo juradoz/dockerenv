@@ -7,19 +7,7 @@ exec { "apt-update":
 		require => Exec["apt-autoremove"]
 }
 
-package { "curl":
+package { "docker.io":
 	ensure => installed,
 	require => Exec["apt-update"]
-}
-
-exec { "docker_install":
-	command => "curl -fsSL https://get.docker.com/ | sh",
-	path => ["/usr/bin", "/bin", "/usr/sbin", "/sbin"],
-	creates => "/usr/bin/docker",
-	require => Package["curl"]
-}
-
-user { "vagrant":
-    ensure => present,
-	groups => "docker"
 }
